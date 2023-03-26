@@ -16,8 +16,10 @@
 <MenuBar />
 
 <div class="flex gap-8 my-12 justify-center">
-	<div class="overview rounded-lg w-72 bg-slate-700 h-80 prose p-4">
-		<h2 class="text-sky-100">Overview</h2>
+	<div class="relative w-72">
+		<div class="overview fixed rounded-lg w-72 bg-slate-700 min-h-[20rem] prose p-4">
+			<h2 class="text-sky-100">Overview</h2>
+		</div>
 	</div>
 
 	<div class="content max-w-3xl w-full">

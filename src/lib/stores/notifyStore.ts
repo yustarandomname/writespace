@@ -52,4 +52,8 @@ function createNotifyStore() {
 
 const notificationStore = createNotifyStore();
 
+export function notifyNotImplemented(title: string) {
+	notificationStore.add(title + ' is not implemented yet', 'warning');
+}
+
 export default notificationStore;

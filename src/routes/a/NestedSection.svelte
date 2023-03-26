@@ -1,22 +1,22 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Chapter } from '$lib/TextBlock';
+	import type { Section } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
-	import NestedSection from './NestedSection.svelte';
+	import NestedParagraph from './NestedParagraph.svelte';
 
-	export let chapter: Chapter;
+	export let section: Section;
 
 	const dispatch = createEventDispatcher();
 
-	let removeChapterPopup = false;
+	let removeSectionPopup = false;
 </script>
 
-<!-- Remove chapter -->
-<Modal bind:open={removeChapterPopup} size="xs" autoclose>
+<!-- Remove Section -->
+<Modal bind:open={removeSectionPopup} size="xs" autoclose>
 	<div class="text-center prose">
 		<h3 class="mb-5 text-gray-500 dark:text-gray-400">
-			Are you sure you want to delete this chapter?
+			Are you sure you want to delete this section?
 		</h3>
 		<Button on:click={() => dispatch('delete')} color="red" class="mr-2">Yes, I'm sure</Button>
 		<Button color="alternative">No, cancel</Button>
@@ -25,8 +25,8 @@
 
 <div class="relative">
 	<div class="rounded my-4 overflow-hidden">
-		<div class="flex items-center justify-between bg-sky-400 pl-4 pr-2 py-1">
-			<div class="font-medium">Chapter</div>
+		<div class="flex items-center justify-between bg-green-400 pl-4 pr-2 py-1">
+			<div class="font-medium">Section</div>
 
 			<!-- Actions -->
 			<div class="flex gap-2">
@@ -36,28 +36,27 @@
 					<DropdownItem on:click={() => notifyNotImplemented('Move down')}>Down</DropdownItem>
 				</Dropdown>
 
-				<Button color="red" on:click={() => (removeChapterPopup = true)}>Delete</Button>
+				<Button color="red" on:click={() => (removeSectionPopup = true)}>Delete</Button>
 			</div>
 		</div>
 
 		<input
 			type="text"
-			bind:value={chapter.title}
-			placeholder="Enter chapter name"
+			bind:value={section.title}
+			placeholder="Enter section name"
 			class="py-2 px-8 outline-none border-none w-full"
 		/>
 	</div>
 
-	<div class="absolute left-0 top-0 h-full w-2 rounded bg-sky-400" />
+	<div class="absolute left-0 top-0 h-full w-2 rounded bg-green-400" />
 
-	<!-- Content -->
 	<div class="p-4 pr-0">
 		<div class="flex justify-center">
-			<Button color="green">+ Add Section</Button>
+			<Button color="green">+ Add Paragraph</Button>
 		</div>
 
-		{#each chapter.sections as section}
-			<NestedSection {section} />
+		{#each section.paragraphs as paragraph}
+			<NestedParagraph {paragraph} />
 		{/each}
 	</div>
 </div>

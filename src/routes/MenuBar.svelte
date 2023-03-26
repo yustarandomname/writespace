@@ -1,11 +1,7 @@
 <script lang="ts">
 	import MenuButton from './MenuButton.svelte';
 	import { mdiHome, mdiUndo, mdiRedo, mdiPrinter, mdiAccountPlus } from '@mdi/js';
-	import notificationStore from '../lib/stores/notifyStore';
-
-	function notifyNotImplemented(title: string) {
-		notificationStore.add(title + ' is not implemented yet', 'warning');
-	}
+	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 </script>
 
 <div class="flex px-8 py-2 bg-sky-700 items-center justify-between">
