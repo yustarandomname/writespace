@@ -1,67 +1,32 @@
 <script lang="ts">
+	import type { Chapter } from '$lib/TextBlock';
+	import hardCodedBook from '$lib/hardCodedBook';
 	import MenuBar from '../MenuBar.svelte';
+	import NestedChapter from '../a/NestedChapter.svelte';
+	import Overview from './Overview.svelte';
 
 	let title = 'new page';
 
-	class TextBlock {
-		id: string;
-		title: string;
-		content: string;
+	let chapters: Chapter[] = hardCodedBook;
 
-		constructor(id: string, title: string, content: string) {
-			this.id = id;
-			this.title = title;
-			this.content = content;
-		}
+	function deleteChapter(chapter: Chapter) {
+		chapters = chapters.filter((c) => c.id !== chapter.id);
 	}
-
-	class Paragraph extends TextBlock {
-		constructor(title: string, content: string) {
-			const id = Math.random().toString(36).slice(2, 9);
-			super(id, title, content);
-		}
-	}
-
-	class Section extends TextBlock {
-		paragraphs: Paragraph[] = [];
-		constructor(title: string, content: string) {
-			const id = Math.random().toString(36).slice(2, 9);
-			super(id, title, content);
-		}
-
-		addParagraph(paragraph: Paragraph) {
-			this.paragraphs.push(paragraph);
-		}
-
-		deleteParagraph(paragraph: Paragraph) {
-			this.paragraphs = this.paragraphs.filter((p) => p !== paragraph);
-		}
-	}
-
-	class Chapter extends TextBlock {
-		sections: Section[] = [];
-
-		constructor(title: string, content: string) {
-			const id = Math.random().toString(36).slice(2, 9);
-			super(id, title, content);
-		}
-
-		addSection(section: Section) {
-			this.sections.push(section);
-		}
-
-		deleteSection(section: Section) {
-			this.sections = this.sections.filter((s) => s !== section);
-		}
-	}
-
-	let page: Chapter[] = [];
 </script>
 
 <MenuBar />
 
-<div class="flex">
-	<div class="overview" />
+<div class="flex gap-8 my-12 justify-center">
+	<div class="relative w-72">
+		<div class="overview fixed rounded-lg w-72 bg-slate-700 min-h-[20rem] prose p-4">
+			<h2 class="text-sky-100">Overview</h2>
+			<Overview blocks={chapters} />
+		</div>
+	</div>
 
-	<div class="content" />
+	<div class="content max-w-3xl w-full">
+		{#each chapters as chapter (chapter.id)}
+			<NestedChapter {chapter} on:delete={() => deleteChapter(chapter)} />
+		{/each}
+	</div>
 </div>

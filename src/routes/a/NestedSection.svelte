@@ -7,6 +7,7 @@
 	import NestedParagraph from './NestedParagraph.svelte';
 
 	export let section: Section;
+	export let nested = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -75,9 +76,11 @@
 		/>
 	</div>
 
-	<div class="absolute left-0 top-0 h-full w-2 rounded bg-green-400" />
+	{#if nested}
+		<div class="absolute left-0 top-0 h-full w-2 rounded bg-green-400" />
+	{/if}
 
-	<div class="p-4 pr-0">
+	<div class:nested>
 		<div class="flex justify-center">
 			<Button color="green" on:click={prependParToSection}>+ Add Paragraph</Button>
 		</div>
@@ -91,3 +94,9 @@
 		{/each}
 	</div>
 </div>
+
+<style lang="postcss">
+	.nested {
+		@apply p-4 pr-0;
+	}
+</style>

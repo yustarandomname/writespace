@@ -26,7 +26,7 @@
 
 	<div class="content max-w-3xl w-full">
 		{#each chapters as chapter (chapter.id)}
-			<NestedChapter {chapter} on:delete={() => deleteChapter(chapter)} />
+			<NestedChapter nested {chapter} on:delete={() => deleteChapter(chapter)} />
 		{/each}
 	</div>
 </div>

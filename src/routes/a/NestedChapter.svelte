@@ -7,6 +7,7 @@
 	import NestedSection from './NestedSection.svelte';
 
 	export let chapter: Chapter;
+	export let nested = false;
 
 	const dispatch = createEventDispatcher();
 
@@ -59,16 +60,24 @@
 		/>
 	</div>
 
-	<div class="absolute left-0 top-0 h-full w-2 rounded bg-sky-400" />
+	{#if nested}
+		<div class="absolute left-0 top-0 h-full w-2 rounded bg-sky-400" />
+	{/if}
 
 	<!-- Content -->
-	<div class="p-4 pr-0">
+	<div class:nested>
 		<div class="flex justify-center">
 			<Button color="green" on:click={prependSectionToChapter}>+ Add Section</Button>
 		</div>
 
 		{#each chapter.sections as section (section.id)}
-			<NestedSection on:delete={() => deleteSection(section)} {section} />
+			<NestedSection {nested} on:delete={() => deleteSection(section)} {section} />
 		{/each}
 	</div>
 </div>
+
+<style lang="postcss">
+	.nested {
+		@apply p-4 pr-0;
+	}
+</style>
