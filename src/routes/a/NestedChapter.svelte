@@ -64,9 +64,7 @@
 	<!-- Content -->
 	<div class="p-4 pr-0">
 		<div class="flex justify-center">
-			<Button color="green" on:click={prependSectionToChapter}>
-				+ Add Section {chapter.id}
-			</Button>
+			<Button color="green" on:click={prependSectionToChapter}>+ Add Section</Button>
 		</div>
 
 		{#each chapter.sections as section (section.id)}

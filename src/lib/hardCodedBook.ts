@@ -19,5 +19,6 @@ c1.addSection(s1);
 c1.addSection(s1.clone());
 
 const c2 = c1.clone();
+c2.title = 'Chapter 2';
 
 export default [c1, c2];
