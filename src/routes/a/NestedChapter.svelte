@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Chapter } from '$lib/TextBlock';
+	import type { Chapter, Section } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { fly } from 'svelte/transition';
 	import NestedSection from './NestedSection.svelte';
 
 	export let chapter: Chapter;
@@ -10,6 +11,10 @@
 	const dispatch = createEventDispatcher();
 
 	let removeChapterPopup = false;
+
+	function deleteSection(section: Section) {
+		chapter.sections = chapter.sections.filter((s) => s.id !== section.id);
+	}
 </script>
 
 <!-- Remove chapter -->
@@ -23,10 +28,10 @@
 	</div>
 </Modal>
 
-<div class="chapter relative" id={chapter.id}>
+<div class="chapter relative" id={chapter.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-sky-400 pl-4 pr-2 py-1">
-			<div class="font-medium">Chapter</div>
+			<div class="font-medium">Chapter {chapter.id}</div>
 
 			<!-- Actions -->
 			<div class="flex gap-2">
@@ -56,8 +61,8 @@
 			<Button color="green">+ Add Section</Button>
 		</div>
 
-		{#each chapter.sections as section}
-			<NestedSection {section} />
+		{#each chapter.sections as section (section.id)}
+			<NestedSection on:delete={() => deleteSection(section)} {section} />
 		{/each}
 	</div>
 </div>

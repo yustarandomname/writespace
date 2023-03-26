@@ -2,8 +2,6 @@
 	import type { TextBlocks } from '$lib/TextBlock';
 
 	export let blocks: TextBlocks;
-
-	console.log('blocks', blocks);
 </script>
 
 {#each blocks as block}

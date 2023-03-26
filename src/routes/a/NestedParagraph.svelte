@@ -3,6 +3,7 @@
 	import type { Paragraph } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 
 	export let paragraph: Paragraph;
 
@@ -37,7 +38,7 @@
 	</div>
 </Modal>
 
-<div class="relative" id={paragraph.id}>
+<div class="relative" id={paragraph.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-yellow-300 pl-4 pr-2 py-1">
 			<div class="font-medium">Paragraph</div>

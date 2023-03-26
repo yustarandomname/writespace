@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Section } from '$lib/TextBlock';
+	import type { Paragraph, Section } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { fly } from 'svelte/transition';
 	import NestedParagraph from './NestedParagraph.svelte';
 
 	export let section: Section;
@@ -10,6 +11,10 @@
 	const dispatch = createEventDispatcher();
 
 	let removeSectionPopup = false;
+
+	function deleteParagraph(paragraph: Paragraph) {
+		section.paragraphs = section.paragraphs.filter((p) => p.id !== paragraph.id);
+	}
 </script>
 
 <!-- Remove Section -->
@@ -23,10 +28,10 @@
 	</div>
 </Modal>
 
-<div class="relative" id={section.id}>
+<div class="relative" id={section.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-green-400 pl-4 pr-2 py-1">
-			<div class="font-medium">Section</div>
+			<div class="font-medium">Section {section.id}</div>
 
 			<!-- Actions -->
 			<div class="flex gap-2">
@@ -55,8 +60,8 @@
 			<Button color="green">+ Add Paragraph</Button>
 		</div>
 
-		{#each section.paragraphs as paragraph}
-			<NestedParagraph {paragraph} />
+		{#each section.paragraphs as paragraph (paragraph.id)}
+			<NestedParagraph on:delete={() => deleteParagraph(paragraph)} {paragraph} />
 		{/each}
 	</div>
 </div>
