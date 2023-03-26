@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '../Header.svelte';
+	import MenuBar from '../MenuBar.svelte';
 </script>
 
-<Header />
+<MenuBar />
