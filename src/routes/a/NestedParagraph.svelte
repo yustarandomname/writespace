@@ -12,7 +12,7 @@
 	let removeSectionPopup = false;
 
 	function appendParagraph() {
-		notifyNotImplemented('Append paragraph');
+		dispatch('append', paragraph);
 	}
 
 	function resize(event: KeyboardEvent) {
@@ -62,6 +62,7 @@
 			on:keydown={resize}
 			on:keyup={resize}
 			bind:value={paragraph.content}
+			placeholder="Enter paragraph content"
 		/>
 	</div>
 

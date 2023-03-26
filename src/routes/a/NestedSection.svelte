@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Paragraph, Section } from '$lib/TextBlock';
+	import { Paragraph, type Section } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -14,6 +14,28 @@
 
 	function deleteParagraph(paragraph: Paragraph) {
 		section.paragraphs = section.paragraphs.filter((p) => p.id !== paragraph.id);
+	}
+
+	function prependParToSection() {
+		const newParagraph = new Paragraph('');
+		section.paragraphs = [newParagraph, ...section.paragraphs];
+	}
+
+	/**
+	 * Append a new paragraph after the given paragraph
+	 */
+	function appendParagraphAfter(paragraph: Paragraph) {
+		const newParagraph = new Paragraph('');
+		const index = section.paragraphs.findIndex((p) => p.id === paragraph.id);
+		section.paragraphs = [
+			...section.paragraphs.slice(0, index + 1),
+			newParagraph,
+			...section.paragraphs.slice(index + 1)
+		];
+	}
+
+	function handleAppendParagraph(e: CustomEvent) {
+		appendParagraphAfter(e.detail);
 	}
 </script>
 
@@ -57,11 +79,15 @@
 
 	<div class="p-4 pr-0">
 		<div class="flex justify-center">
-			<Button color="green">+ Add Paragraph</Button>
+			<Button color="green" on:click={prependParToSection}>+ Add Paragraph</Button>
 		</div>
 
 		{#each section.paragraphs as paragraph (paragraph.id)}
-			<NestedParagraph on:delete={() => deleteParagraph(paragraph)} {paragraph} />
+			<NestedParagraph
+				on:append={(e) => handleAppendParagraph(e)}
+				on:delete={() => deleteParagraph(paragraph)}
+				{paragraph}
+			/>
 		{/each}
 	</div>
 </div>
