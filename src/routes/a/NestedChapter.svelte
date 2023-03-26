@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Chapter, Section } from '$lib/TextBlock';
+	import { Section, type Chapter } from '$lib/TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
@@ -14,6 +14,12 @@
 
 	function deleteSection(section: Section) {
 		chapter.sections = chapter.sections.filter((s) => s.id !== section.id);
+	}
+
+	function prependSectionToChapter() {
+		const newSection: Section = new Section('', '');
+
+		chapter.sections = [newSection, ...chapter.sections];
 	}
 </script>
 
@@ -58,7 +64,9 @@
 	<!-- Content -->
 	<div class="p-4 pr-0">
 		<div class="flex justify-center">
-			<Button color="green">+ Add Section</Button>
+			<Button color="green" on:click={prependSectionToChapter}>
+				+ Add Section {chapter.id}
+			</Button>
 		</div>
 
 		{#each chapter.sections as section (section.id)}

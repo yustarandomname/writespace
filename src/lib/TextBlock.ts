@@ -72,7 +72,7 @@ export class Chapter extends TextBlock {
 	}
 
 	addSection(section: Section) {
-		this.sections.push(section);
+		this.sections = [...this.sections, section];
 	}
 
 	deleteSection(section: Section) {
