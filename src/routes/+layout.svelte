@@ -1,5 +1,5 @@
 <script>
-	import '../app.css';
+	import '../app.postcss';
 
 	import notificationStore from '../lib/stores/notifyStore';
 	import { Alert } from 'flowbite-svelte';
@@ -31,9 +31,3 @@
 		</div>
 	{/each}
 </div>
-
-<style lang="postcss">
-	:global(body) {
-		background-color: theme(colors.slate.900);
-	}
-</style>

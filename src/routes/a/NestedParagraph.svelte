@@ -30,14 +30,14 @@
 <Modal bind:open={removeSectionPopup} size="xs" autoclose>
 	<div class="text-center prose">
 		<h3 class="mb-5 text-gray-500 dark:text-gray-400">
-			Are you sure you want to delete this section?
+			Are you sure you want to delete this paragraph?
 		</h3>
 		<Button on:click={() => dispatch('delete')} color="red" class="mr-2">Yes, I'm sure</Button>
 		<Button color="alternative">No, cancel</Button>
 	</div>
 </Modal>
 
-<div class="relative">
+<div class="relative" id={paragraph.id}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-yellow-300 pl-4 pr-2 py-1">
 			<div class="font-medium">Paragraph</div>
@@ -55,7 +55,7 @@
 		</div>
 
 		<textarea
-			class="w-full overflow-hidden resize-none"
+			class="w-full overflow-hidden resize-none border-none rounded-b"
 			rows="1"
 			use:resizeInit
 			on:keydown={resize}

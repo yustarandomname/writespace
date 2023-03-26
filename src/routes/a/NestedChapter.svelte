@@ -23,7 +23,7 @@
 	</div>
 </Modal>
 
-<div class="relative">
+<div class="chapter relative" id={chapter.id}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-sky-400 pl-4 pr-2 py-1">
 			<div class="font-medium">Chapter</div>

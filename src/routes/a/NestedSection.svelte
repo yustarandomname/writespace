@@ -23,7 +23,7 @@
 	</div>
 </Modal>
 
-<div class="relative">
+<div class="relative" id={section.id}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between bg-green-400 pl-4 pr-2 py-1">
 			<div class="font-medium">Section</div>
