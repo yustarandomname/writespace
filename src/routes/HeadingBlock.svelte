@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
@@ -18,20 +19,21 @@
 <div class="relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between pl-4 background pr-2 py-1">
-			<div class="font-medium">Chapter at level {block.level}</div>
+			<div class="font-medium font-size print:hidden">Chapter at level {block.level}</div>
 
 			<!-- Actions -->
-			<div class="flex gap-2">
+			<div class="flex gap-2 print:hidden">
 				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
 			</div>
 		</div>
 
-		<input
-			type="text"
-			bind:value={block.text}
-			placeholder="Enter chapter name"
-			class="py-2 px-8 outline-none border-none w-full"
-		/>
+		<div
+			class="py-2 px-8 outline-none border-none w-full bg-white print-size"
+			on:click={() => notifyNotImplemented("open chapter's editor")}
+			on:keydown
+		>
+			{block.text}
+		</div>
 	</div>
 
 	{#if nested}
@@ -55,15 +57,46 @@
 		@apply p-4 pr-0;
 	}
 
+	/* Level 0 */
 	.level0 .background {
 		@apply bg-sky-400;
 	}
 
+	.level0 .font-size {
+		@apply text-2xl;
+	}
+
+	/* Level 1 */
 	.level1 .background {
 		@apply bg-green-400;
 	}
 
+	.level1 .font-size {
+		@apply text-xl;
+	}
+
+	/* Level 2 */
 	.level2 .background {
 		@apply bg-orange-400;
+	}
+
+	.level2 .font-size {
+		@apply text-lg;
+	}
+
+	@media print {
+		.nested {
+			@apply p-0;
+		}
+
+		.level0 .print-size {
+			@apply text-2xl;
+		}
+		.level1 .print-size {
+			@apply text-xl;
+		}
+		.level2 .print-size {
+			@apply text-lg;
+		}
 	}
 </style>

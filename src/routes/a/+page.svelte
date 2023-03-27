@@ -18,11 +18,11 @@
 <menubar />
 
 <div class="flex gap-8 my-12 justify-center">
-	<div class="relative w-72">
+	<div class="relative w-72 print:hidden">
 		<div class="overview fixed rounded-lg w-72 bg-slate-700 min-h-[20rem] prose p-4">
 			<h2 class="text-sky-100">Overview</h2>
 			<div class="w-full">
-				<Overview {blocks} />
+				<Overview {blocks} nested />
 			</div>
 		</div>
 	</div>
