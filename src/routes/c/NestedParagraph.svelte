@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import type { Paragraph } from '$lib/TextBlock';
+	import type { Paragraph } from './TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';

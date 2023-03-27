@@ -1,91 +1,38 @@
-class TextBlock {
+/**
+ * @param title user recognisable title
+ * @returns {random chars}*8 + title in lowercase with spaces replaced by dashes
+ */
+function generateId(title: string) {
+	return Math.random().toString(36).slice(2, 9) + title.toLowerCase().replace(/ /g, '-');
+}
+
+interface TextBlock {
 	id: string;
-	title: string;
-	content: string;
-	type = 'textblock';
+	blockType: string;
+	text: string;
+}
 
-	constructor(id: string, title: string, content: string) {
-		this.id = id;
-		this.title = title;
-		this.content = content;
-	}
+export class Heading implements TextBlock {
+	id: string;
+	blockType = 'heading';
+	children: TextBlock[] = [];
 
-	get children(): TextBlocks {
-		return [];
+	constructor(public text: string, public level: number) {
+		this.id = generateId(text);
 	}
 }
 
-export type TextBlocks = TextBlock[];
+export class Paragraph implements TextBlock {
+	id: string;
+	blockType = 'paragraph';
 
-export class Paragraph extends TextBlock {
-	type = 'paragraph';
-
-	constructor(content: string) {
-		const id = Math.random().toString(36).slice(2, 9);
-		super(id, '', content);
-	}
-
-	get children(): TextBlocks {
-		return [];
-	}
-
-	clone() {
-		return new Paragraph(this.content);
+	constructor(public text: string) {
+		this.id = generateId(text);
 	}
 }
 
-export class Section extends TextBlock {
-	type = 'section';
-	paragraphs: Paragraph[] = [];
-
-	constructor(title: string, content: string) {
-		const id = Math.random().toString(36).slice(2, 9);
-		super(id, title, content);
-	}
-
-	addParagraph(paragraph: Paragraph) {
-		this.paragraphs.push(paragraph);
-	}
-
-	deleteParagraph(paragraph: Paragraph) {
-		this.paragraphs = this.paragraphs.filter((p) => p !== paragraph);
-	}
-
-	get children(): TextBlocks {
-		return this.paragraphs;
-	}
-
-	clone() {
-		const clone = new Section(this.title, this.content);
-		clone.paragraphs = this.paragraphs.map((p) => p.clone());
-		return clone;
-	}
+export function isHeading(block: Block): block is Heading {
+	return block.blockType === 'heading';
 }
 
-export class Chapter extends TextBlock {
-	type = 'chapter';
-	sections: Section[] = [];
-
-	constructor(title: string, content: string) {
-		const id = Math.random().toString(36).slice(2, 9);
-		super(id, title, content);
-	}
-
-	addSection(section: Section) {
-		this.sections = [...this.sections, section];
-	}
-
-	deleteSection(section: Section) {
-		this.sections = this.sections.filter((s) => s !== section);
-	}
-
-	get children(): TextBlocks {
-		return this.sections;
-	}
-
-	clone() {
-		const clone = new Chapter(this.title, this.content);
-		clone.sections = this.sections.map((s) => s.clone());
-		return clone;
-	}
-}
+export type Block = Heading | Paragraph;

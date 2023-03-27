@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TextBlocks } from '$lib/TextBlock';
+	import type { TextBlocks } from './TextBlock';
 
 	export let blocks: TextBlocks;
 </script>
@@ -9,9 +9,11 @@
 		<a href="#{block.id}" class="text-sky-100 no-underline">
 			{block.title}
 		</a>
-	</div>
 
-	{#if block.children}
-		<svelte:self blocks={block.children} />
-	{/if}
+		{#if block.children}
+			<div class="ml-1">
+				<svelte:self blocks={block.children} />
+			</div>
+		{/if}
+	</div>
 {/each}

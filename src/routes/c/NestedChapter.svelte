@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import { Section, type Chapter } from '$lib/TextBlock';
+	import { Section, type Chapter } from './TextBlock';
 	import { Button, Chevron, Dropdown, DropdownItem, Modal } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import NestedSection from './NestedSection.svelte';
+	import NestedSection from '../a/NestedSection.svelte';
 
 	export let chapter: Chapter;
 	export let nested = false;

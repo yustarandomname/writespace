@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { Chapter } from '$lib/TextBlock';
+	import type { Chapter } from './TextBlock';
 	import hardCodedBook from '$lib/hardCodedBook';
 	import MenuBar from '../MenuBar.svelte';
-	import NestedChapter from '../a/NestedChapter.svelte';
-	import Overview from './Overview.svelte';
+	import NestedChapter from './NestedChapter.svelte';
+	import NestedOverview from './NestedOverview.svelte';
 
 	let title = 'new page';
 
@@ -16,11 +16,13 @@
 
 <MenuBar />
 
+<h1>This a legacy version of the editor a new vesion can be found <a href="/a">here</a></h1>
+
 <div class="flex gap-8 my-12 justify-center">
 	<div class="relative w-72">
 		<div class="overview fixed rounded-lg w-72 bg-slate-700 min-h-[20rem] prose p-4">
 			<h2 class="text-sky-100">Overview</h2>
-			<Overview blocks={chapters} />
+			<NestedOverview blocks={chapters} />
 		</div>
 	</div>
 
