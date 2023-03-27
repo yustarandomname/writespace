@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 	import type { Paragraph } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 
 	export let block: Paragraph;
+
+	const dispatch = createEventDispatcher();
 
 	function resize(event: KeyboardEvent) {
 		const target = event.target as HTMLTextAreaElement;
@@ -25,9 +27,7 @@
 
 			<!-- Actions -->
 			<div class="flex gap-2">
-				<Button color="red" on:click={() => notifyNotImplemented('Delete paragraph')}>
-					Delete
-				</Button>
+				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
 			</div>
 		</div>
 

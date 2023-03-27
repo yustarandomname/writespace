@@ -9,6 +9,10 @@
 	let title = 'new page';
 
 	let blocks: Block[] = hardCodedBook;
+
+	function deleteBlock(block: Block) {
+		blocks = blocks.filter((b) => b.id !== block.id);
+	}
 </script>
 
 <menubar />
@@ -26,9 +30,9 @@
 
 		{#each blocks as block (block.id)}
 			{#if isHeading(block)}
-				<HeadingBlock {block} nested />
+				<HeadingBlock on:delete={() => deleteBlock(block)} {block} nested />
 			{:else}
-				<ParagraphBlock {block} />
+				<ParagraphBlock on:delete={() => deleteBlock(block)} {block} />
 			{/if}
 		{/each}
 	</div>

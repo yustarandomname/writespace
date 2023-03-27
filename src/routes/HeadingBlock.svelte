@@ -1,12 +1,18 @@
 <script lang="ts">
-	import { notifyNotImplemented } from '$lib/stores/notifyStore';
-	import { isHeading, type Heading } from '$lib/TextBlock';
+	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
+	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import ParagraphBlock from './ParagraphBlock.svelte';
 
 	export let block: Heading;
 	export let nested: boolean = false;
+
+	const dispatch = createEventDispatcher();
+
+	function removeBlock(nestedBlock: Block) {
+		block.children = block.children.filter((b) => b.id !== nestedBlock.id);
+	}
 </script>
 
 <div class="chapter relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
@@ -16,7 +22,7 @@
 
 			<!-- Actions -->
 			<div class="flex gap-2">
-				<Button color="red" on:click={() => notifyNotImplemented('delete heading')}>Delete</Button>
+				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
 			</div>
 		</div>
 
@@ -36,9 +42,9 @@
 	<div class:nested>
 		{#each block.children as nestedBlock (nestedBlock.id)}
 			{#if isHeading(nestedBlock)}
-				<svelte:self block={nestedBlock} {nested} />
+				<svelte:self on:delete={() => removeBlock(nestedBlock)} block={nestedBlock} {nested} />
 			{:else}
-				<ParagraphBlock block={nestedBlock} />
+				<ParagraphBlock on:delete={() => removeBlock(nestedBlock)} block={nestedBlock} />
 			{/if}
 		{/each}
 	</div>
