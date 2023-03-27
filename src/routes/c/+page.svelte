@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Chapter } from './TextBlock';
-	import hardCodedBook from '$lib/hardCodedBook';
-	import MenuBar from '../MenuBar.svelte';
+	import hardCodedBook from './hardCodedBook';
+	import MenuBar from '$lib/MenuBar.svelte';
 	import NestedChapter from './NestedChapter.svelte';
 	import NestedOverview from './NestedOverview.svelte';
 

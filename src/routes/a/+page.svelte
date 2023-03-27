@@ -5,6 +5,7 @@
 	import Overview from '../Overview.svelte';
 	import ParagraphBlock from '../ParagraphBlock.svelte';
 	import TitleBlock from '../TitleBlock.svelte';
+	import MenuBar from '$lib/MenuBar.svelte';
 
 	let title = 'new page';
 
@@ -15,7 +16,7 @@
 	}
 </script>
 
-<menubar />
+<MenuBar />
 
 <div class="flex gap-8 my-12 justify-center">
 	<div class="relative w-72 print:hidden">

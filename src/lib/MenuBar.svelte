@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MenuButton from './MenuButton.svelte';
+	import MenuButton from '../routes/MenuButton.svelte';
 	import { mdiHome, mdiUndo, mdiRedo, mdiPrinter, mdiAccountPlus } from '@mdi/js';
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 </script>
