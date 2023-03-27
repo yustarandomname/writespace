@@ -1,15 +1,19 @@
 <script lang="ts">
+	import Modal from '$lib/Modal.svelte';
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import ParagraphBlock from './ParagraphBlock.svelte';
+	import AbstractHeading from '$lib/AbstractHeading.svelte';
 
 	export let block: Heading;
 	export let nested: boolean = false;
 
 	const dispatch = createEventDispatcher();
+
+	let showEditor = false;
 
 	function removeBlock(nestedBlock: Block) {
 		block.children = block.children.filter((b) => b.id !== nestedBlock.id);
@@ -23,13 +27,13 @@
 
 			<!-- Actions -->
 			<div class="flex gap-2 print:hidden">
-				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+				<Button color="blue" on:click={() => (showEditor = true)}>Edit</Button>
 			</div>
 		</div>
 
 		<div
 			class="py-2 px-8 outline-none border-none w-full bg-white print-size"
-			on:click={() => notifyNotImplemented("open chapter's editor")}
+			on:click={() => (showEditor = true)}
 			on:keydown
 		>
 			{block.text}
@@ -51,6 +55,23 @@
 		{/each}
 	</div>
 </div>
+
+{#if showEditor}
+	<Modal>
+		<AbstractHeading {block}>
+			<svelte:fragment slot="actions">
+				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+				<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
+			</svelte:fragment>
+
+			<input
+				class="w-[40rem] overflow-hidden resize-none border-none rounded-b p-3"
+				bind:value={block.text}
+				placeholder="Enter heading content"
+			/>
+		</AbstractHeading>
+	</Modal>
+{/if}
 
 <style lang="postcss">
 	.nested {

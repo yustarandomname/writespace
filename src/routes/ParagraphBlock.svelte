@@ -26,7 +26,7 @@
 <div out:fly={{ x: 200 }}>
 	<AbstractParagraph {block} on:click={() => (showEditor = true)}>
 		<svelte:fragment slot="actions">
-			<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+			<Button color="blue" on:click={() => (showEditor = true)}>Edit</Button>
 		</svelte:fragment>
 	</AbstractParagraph>
 </div>
@@ -35,7 +35,8 @@
 	<Modal>
 		<AbstractParagraph {block}>
 			<svelte:fragment slot="actions">
-				<Button color="green" on:click={() => (showEditor = false)}>Done</Button>
+				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+				<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
 			</svelte:fragment>
 
 			<textarea
