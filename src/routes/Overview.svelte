@@ -6,8 +6,15 @@
 
 {#each blocks as block (block.id)}
 	{#if isHeading(block)}
-		<h1 class="text-sky-100">{block.text}</h1>
+		<p class="overview text-sky-100">{block.text}</p>
 	{:else}
-		<h1 class="text-yellow-100">{block.text}</h1>
+		<p class="overview text-yellow-100">{block.text}</p>
 	{/if}
 {/each}
+
+<style lang="postcss">
+	.overview {
+		@apply text-ellipsis overflow-hidden;
+		white-space: nowrap;
+	}
+</style>

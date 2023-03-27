@@ -1,24 +1,21 @@
-import { Chapter, Paragraph, Section } from './TextBlock';
+import { Heading, Paragraph } from '$lib/TextBlock';
 
-const c1 = new Chapter('Chapter 1', 'This is the first chapter');
-const s1 = new Section('Section 1', 'This is the first section');
-const p1 = new Paragraph(
-	'Quantum computers are a new type of computer that use the principles of quantum mechanics to perform calculations. Unlike classical computers, which use bits to represent information as either 0 or 1, quantum computers use qubits, which can be in a state of 0, 1, or both at the same time. This allows quantum computers to perform certain types of calculations much faster than classical computers, particularly in the areas of cryptography and optimization.'
-);
-const p2 = new Paragraph(
-	'Quantum computers are still in the early stages of development, but they have the potential to revolutionize many fields. For example, they could be used to simulate complex chemical reactions, which could lead to the development of new drugs and materials. They could also be used to optimize complex systems, such as transportation networks or financial portfolios. However, there are still many technical challenges that need to be overcome before quantum computers can be widely used, such as improving the stability of qubits and developing error correction techniques.'
-);
-const p3 = new Paragraph(
-	'Despite the challenges, many companies and governments are investing in quantum computing research. In the coming years, we can expect to see significant progress in this field, with the development of more powerful quantum computers and the exploration of new applications. As quantum computers become more advanced, they will likely have a major impact on many aspects of our lives, from the way we communicate and do business to the way we understand the world around us.'
+const introductionPar = new Paragraph(
+	'Human-computer interaction (HCI) is a vital area of study that focuses on the design, evaluation, and implementation of interactive computing systems for human use. The importance of HCI lies in its ability to improve the usability, accessibility, and overall user experience of computer systems and applications. As technology continues to advance and become more integrated into our daily lives, it is crucial to ensure that these systems are designed with the user in mind. Effective HCI can lead to increased productivity, efficiency, and satisfaction for users, while also reducing errors and frustration. Ultimately, the success of any computing system depends on its ability to meet the needs and expectations of its users, making HCI an essential field for creating successful and user-friendly technology.'
 );
 
-s1.addParagraph(p1);
-s1.addParagraph(p2);
-s1.addParagraph(p3);
-c1.addSection(s1);
-c1.addSection(s1.clone());
+const chapter1 = new Heading('Introduction to Human-Computer Interaction', 0);
+chapter1.addParagraph('This is a paragraph');
+const chapter1s1 = chapter1.addHeading('this is heading 1.1');
+chapter1s1.addParagraph('This is a paragraph in 1.1');
+const chapter1s1s1 = chapter1s1.addHeading('this is heading 1.1.1');
+chapter1s1s1.addParagraph('This is a paragraph in 1.1.1');
+chapter1s1s1.addParagraph('This is another paragraph in 1.1.1');
 
-const c2 = c1.clone();
-c2.title = 'Chapter 2';
+const chapter2 = new Heading('Why Human-Computer Interaction is good', 0);
+chapter2.addParagraph('This is a introduction paragraph about why HCI is good');
 
-export default [c1, c2];
+const chapter3 = new Heading('Why Human-Computer Interaction is bad', 0);
+chapter3.addParagraph('This is a introduction paragraph about why HCI is not good');
+
+export default [introductionPar, chapter1, chapter2, chapter3];

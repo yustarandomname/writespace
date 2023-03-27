@@ -1,4 +1,5 @@
 <script lang="ts">
+	import hardCodedBook from '$lib/hardCodedBook';
 	import { isHeading, type Block } from '$lib/TextBlock';
 	import HeadingBlock from '../HeadingBlock.svelte';
 	import Overview from '../Overview.svelte';
@@ -7,7 +8,7 @@
 
 	let title = 'new page';
 
-	let blocks: Block[] = [];
+	let blocks: Block[] = hardCodedBook;
 </script>
 
 <menubar />
