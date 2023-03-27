@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 
 export const load = () => {
-	const versions = ['a', 'b'];
+	const versions = ['a']; // TODO: add more versions
 
 	// Get random version
 	const version = versions[Math.floor(Math.random() * versions.length)];

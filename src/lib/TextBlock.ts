@@ -1,6 +1,6 @@
 /**
  * @param title user recognisable title
- * @returns {random chars}*8 + title in lowercase with spaces replaced by dashes
+ * @returns [random chars]*8 + title in lowercase with spaces replaced by dashes
  */
 function generateId(title: string) {
 	return Math.random().toString(36).slice(2, 9) + title.toLowerCase().replace(/ /g, '-');
@@ -21,7 +21,16 @@ export class Heading implements TextBlock {
 		this.id = generateId(text);
 	}
 
+	/**
+	 * @param text - user recognisable title
+	 * @returns new Heading with level + 1
+	 * @throws Error if level is 2 or higher
+	 */
 	addHeading(text: string) {
+		if (this.level >= 2) {
+			throw new Error('Cannot add heading to a heading with level 3 or higher');
+		}
+
 		const heading = new Heading(text, this.level + 1);
 		this.children.push(heading);
 		return heading;

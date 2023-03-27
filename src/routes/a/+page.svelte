@@ -26,7 +26,7 @@
 
 		{#each blocks as block (block.id)}
 			{#if isHeading(block)}
-				<HeadingBlock {block} />
+				<HeadingBlock {block} nested />
 			{:else}
 				<ParagraphBlock {block} />
 			{/if}
