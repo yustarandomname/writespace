@@ -15,7 +15,7 @@
 	}
 </script>
 
-<div class="chapter relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
+<div class="relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
 		<div class="flex items-center justify-between pl-4 background pr-2 py-1">
 			<div class="font-medium">Chapter at level {block.level}</div>
@@ -42,9 +42,9 @@
 	<div class:nested>
 		{#each block.children as nestedBlock (nestedBlock.id)}
 			{#if isHeading(nestedBlock)}
-				<svelte:self on:delete={() => removeBlock(nestedBlock)} block={nestedBlock} {nested} />
+				<svelte:self on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} {nested} />
 			{:else}
-				<ParagraphBlock on:delete={() => removeBlock(nestedBlock)} block={nestedBlock} />
+				<ParagraphBlock on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} />
 			{/if}
 		{/each}
 	</div>

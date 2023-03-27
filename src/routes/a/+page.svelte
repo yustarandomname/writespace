@@ -32,9 +32,9 @@
 
 		{#each blocks as block (block.id)}
 			{#if isHeading(block)}
-				<HeadingBlock on:delete={() => deleteBlock(block)} {block} nested />
+				<HeadingBlock on:delete={() => deleteBlock(block)} bind:block nested />
 			{:else}
-				<ParagraphBlock on:delete={() => deleteBlock(block)} {block} />
+				<ParagraphBlock on:delete={() => deleteBlock(block)} bind:block />
 			{/if}
 		{/each}
 	</div>
