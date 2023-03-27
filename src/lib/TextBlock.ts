@@ -3,7 +3,11 @@
  * @returns [random chars]*8 + title in lowercase with spaces replaced by dashes
  */
 function generateId(title: string) {
-	return Math.random().toString(36).slice(2, 9) + title.toLowerCase().replace(/ /g, '-');
+	return (
+		Math.random().toString(36).slice(2, 9) +
+		'-' +
+		title.toLowerCase().replace(/ /g, '-').slice(0, 28)
+	);
 }
 
 interface TextBlock {

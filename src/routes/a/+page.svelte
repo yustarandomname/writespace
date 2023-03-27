@@ -21,7 +21,9 @@
 	<div class="relative w-72">
 		<div class="overview fixed rounded-lg w-72 bg-slate-700 min-h-[20rem] prose p-4">
 			<h2 class="text-sky-100">Overview</h2>
-			<Overview {blocks} />
+			<div class="w-full">
+				<Overview {blocks} />
+			</div>
 		</div>
 	</div>
 
