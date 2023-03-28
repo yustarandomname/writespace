@@ -6,13 +6,20 @@
 	import ParagraphBlock from '../ParagraphBlock.svelte';
 	import TitleBlock from '../TitleBlock.svelte';
 	import MenuBar from '$lib/MenuBar.svelte';
+	import { Button } from 'flowbite-svelte';
+	import AddNewModal from '$lib/AddNewModal.svelte';
 
 	let title = 'new page';
-
 	let blocks: Block[] = hardCodedBook;
+	let showNewEditor: Block | null = null;
 
 	function deleteBlock(block: Block) {
 		blocks = blocks.filter((b) => b.id !== block.id);
+	}
+
+	function showNewEditorFn(block: Block) {
+		showNewEditor = block;
+		console.log('showNewEditorFn', block);
 	}
 </script>
 
@@ -32,6 +39,8 @@
 		<TitleBlock {title} />
 
 		{#each blocks as block (block.id)}
+			<Button on:click={() => showNewEditorFn(block)} class="mt-2">+ Add Block</Button>
+
 			{#if isHeading(block)}
 				<HeadingBlock on:delete={() => deleteBlock(block)} bind:block nested />
 			{:else}
@@ -40,3 +49,5 @@
 		{/each}
 	</div>
 </div>
+
+<AddNewModal {showNewEditor} />

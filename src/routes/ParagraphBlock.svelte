@@ -31,23 +31,21 @@
 	</AbstractParagraph>
 </div>
 
-{#if showEditor}
-	<Modal>
-		<AbstractParagraph {block}>
-			<svelte:fragment slot="actions">
-				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
-				<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
-			</svelte:fragment>
+<Modal bind:show={showEditor}>
+	<AbstractParagraph {block}>
+		<svelte:fragment slot="actions">
+			<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+			<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
+		</svelte:fragment>
 
-			<textarea
-				class="w-[40rem] overflow-hidden resize-none border-none rounded-b"
-				rows="1"
-				use:resizeInit
-				on:keydown={resize}
-				on:keyup={resize}
-				bind:value={block.text}
-				placeholder="Enter paragraph content"
-			/>
-		</AbstractParagraph>
-	</Modal>
-{/if}
+		<textarea
+			class="w-[40rem] overflow-hidden resize-none border-none rounded-b"
+			rows="1"
+			use:resizeInit
+			on:keydown={resize}
+			on:keyup={resize}
+			bind:value={block.text}
+			placeholder="Enter paragraph content"
+		/>
+	</AbstractParagraph>
+</Modal>

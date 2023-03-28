@@ -1,12 +1,12 @@
 <script lang="ts">
+	import AbstractHeading from '$lib/AbstractHeading.svelte';
+	import AddNewModal from '$lib/AddNewModal.svelte';
 	import Modal from '$lib/Modal.svelte';
-	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import ParagraphBlock from './ParagraphBlock.svelte';
-	import AbstractHeading from '$lib/AbstractHeading.svelte';
 
 	export let block: Heading;
 	export let nested: boolean = false;
@@ -14,6 +14,7 @@
 	const dispatch = createEventDispatcher();
 
 	let showEditor = false;
+	let showNewEditor: Block | null = null;
 
 	function removeBlock(nestedBlock: Block) {
 		block.children = block.children.filter((b) => b.id !== nestedBlock.id);
@@ -47,6 +48,7 @@
 	<!-- Content -->
 	<div class:nested>
 		{#each block.children as nestedBlock (nestedBlock.id)}
+			<Button on:click={() => (showNewEditor = block)} class="mt-2">+ Add Block</Button>
 			{#if isHeading(nestedBlock)}
 				<svelte:self on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} {nested} />
 			{:else}
@@ -56,22 +58,22 @@
 	</div>
 </div>
 
-{#if showEditor}
-	<Modal>
-		<AbstractHeading {block}>
-			<svelte:fragment slot="actions">
-				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
-				<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
-			</svelte:fragment>
+<AddNewModal level={block.level + 1} bind:showNewEditor />
 
-			<input
-				class="w-[40rem] overflow-hidden resize-none border-none rounded-b p-3"
-				bind:value={block.text}
-				placeholder="Enter heading content"
-			/>
-		</AbstractHeading>
-	</Modal>
-{/if}
+<Modal bind:show={showEditor}>
+	<AbstractHeading {block}>
+		<svelte:fragment slot="actions">
+			<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+			<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
+		</svelte:fragment>
+
+		<input
+			class="w-[40rem] overflow-hidden resize-none border-none rounded-b p-3"
+			bind:value={block.text}
+			placeholder="Enter heading content"
+		/>
+	</AbstractHeading>
+</Modal>
 
 <style lang="postcss">
 	.nested {
