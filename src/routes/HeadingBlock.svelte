@@ -65,7 +65,9 @@
 <Modal bind:show={showEditor}>
 	<AbstractHeading {block}>
 		<svelte:fragment slot="actions">
-			<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+			{#if block.level}
+				<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
+			{/if}
 			<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>
 		</svelte:fragment>
 

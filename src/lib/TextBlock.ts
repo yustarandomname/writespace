@@ -38,6 +38,13 @@ export class Heading implements TextBlock {
 		else if (this.level == 3) return 'Sub-section';
 	}
 
+	get color() {
+		if (this.level == 0) return '#e0f2fe';
+		else if (this.level == 1) return '#38bdf8';
+		else if (this.level == 2) return '#4ade80';
+		else if (this.level == 3) return '#fb923c';
+	}
+
 	/**
 	 * @param text - user recognisable title
 	 * @returns new Heading with level + 1
@@ -76,6 +83,8 @@ export class Paragraph implements TextBlock {
 	static default() {
 		return new Paragraph('');
 	}
+
+	get color() {}
 }
 
 export function isHeading(block: Block): block is Heading {

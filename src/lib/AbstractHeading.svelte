@@ -5,7 +5,7 @@
 </script>
 
 <div class="relative max-w-5xl" id={block.id}>
-	<div class="rounded my-4 overflow-hidden level{block.level}">
+	<div class="rounded my-4 overflow-hidden bg-sky-100 level{block.level}">
 		<div class="flex items-center justify-between background pl-4 pr-2 py-1">
 			<div class="font-medium print:hidden">{block.scope}</div>
 

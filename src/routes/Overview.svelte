@@ -7,7 +7,7 @@
 
 {#each blocks as block (block.id)}
 	{#if isHeading(block)}
-		<div class="border-l-2 block px-1 my-1 level{block.level}">
+		<div class="border-l-2 block px-1 my-1" style="border-color: {block.color}">
 			<a href="#{block.id}" class="overview text-sky-100 no-underline block">
 				{block.text}
 			</a>
@@ -29,17 +29,5 @@
 	.overview {
 		@apply text-ellipsis overflow-hidden;
 		white-space: nowrap;
-	}
-
-	.level0 {
-		@apply border-l-2 border-sky-400;
-	}
-
-	.level1 {
-		@apply border-l-2 border-green-400;
-	}
-
-	.level2 {
-		@apply border-l-2 border-orange-400;
 	}
 </style>
