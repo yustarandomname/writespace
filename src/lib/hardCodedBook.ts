@@ -7,7 +7,7 @@ home.addParagraph(
 
 const chapter1 = home.addHeading('Introduction to Human-Computer Interaction');
 chapter1.addParagraph('This is a paragraph');
-const chapter1s1 = chapter1.addHeading('this is heading 1.1');
+chapter1.addHeading('this is heading 1.1');
 // chapter1s1.addParagraph('This is a paragraph in 1.1');
 // const chapter1s1s1 = chapter1s1.addHeading('this is heading 1.1.1');
 // chapter1s1s1.addParagraph('This is a paragraph in 1.1.1');

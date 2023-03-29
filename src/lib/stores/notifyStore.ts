@@ -29,7 +29,6 @@ function createNotifyStore() {
 		subscribe,
 		add: (message: string, type: NotificationType = 'success') => {
 			const id = Math.random().toString(36).slice(2, 9);
-			console.log('id', id);
 
 			// Add new notification to store | if there are more than 5 notifications, delete the oldest one
 			update((notifications) => {

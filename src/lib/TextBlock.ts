@@ -14,6 +14,7 @@ interface TextBlock {
 	id: string;
 	blockType: string;
 	text: string;
+	color: string;
 	parent?: Heading;
 }
 
@@ -43,6 +44,7 @@ export class Heading implements TextBlock {
 		else if (this.level == 1) return '#38bdf8';
 		else if (this.level == 2) return '#4ade80';
 		else if (this.level == 3) return '#fb923c';
+		return '#f87171';
 	}
 
 	/**
@@ -58,7 +60,6 @@ export class Heading implements TextBlock {
 		const heading = new Heading(text, this.level + 1);
 		heading.parent = this;
 		this.children = [...this.children, heading];
-		console.log(this.children);
 		return heading;
 	}
 
@@ -84,7 +85,9 @@ export class Paragraph implements TextBlock {
 		return new Paragraph('');
 	}
 
-	get color() {}
+	get color() {
+		return '#fde047';
+	}
 }
 
 export function isHeading(block: Block): block is Heading {
