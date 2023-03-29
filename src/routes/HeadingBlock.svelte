@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AbstractHeading from '$lib/AbstractHeading.svelte';
-	import AddNewModal from '$lib/AddNewModal.svelte';
 	import Modal from '$lib/Modal.svelte';
+	import PushNewBlock from '$lib/PushNewBlock.svelte';
 	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
 	import { createEventDispatcher } from 'svelte';
@@ -14,17 +14,20 @@
 	const dispatch = createEventDispatcher();
 
 	let showEditor = false;
-	let showNewEditor: Block | null = null;
 
 	function removeBlock(nestedBlock: Block) {
 		block.children = block.children.filter((b) => b.id !== nestedBlock.id);
+	}
+
+	function updateChildren() {
+		block.children = [...block.children];
 	}
 </script>
 
 <div class="relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
-		<div class="flex items-center justify-between pl-4 background pr-2 py-1">
-			<div class="font-medium font-size print:hidden">Chapter at level {block.level}</div>
+		<div class="flex items-center justify-between pl-4 bg-sky-100 background pr-2 py-1">
+			<div class="font-medium font-size print:hidden">{block.scope}</div>
 
 			<!-- Actions -->
 			<div class="flex gap-2 print:hidden">
@@ -41,24 +44,23 @@
 		</div>
 	</div>
 
-	{#if nested}
+	{#if nested && block.level > 0}
 		<div class="absolute left-0 top-0 h-full w-2 rounded background" />
 	{/if}
 
 	<!-- Content -->
-	<div class:nested>
+	<div class:nested={nested && block.level > 0}>
 		{#each block.children as nestedBlock (nestedBlock.id)}
-			<Button on:click={() => (showNewEditor = block)} class="mt-2">+ Add Block</Button>
 			{#if isHeading(nestedBlock)}
 				<svelte:self on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} {nested} />
 			{:else}
 				<ParagraphBlock on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} />
 			{/if}
 		{/each}
+
+		<PushNewBlock {block} on:update={updateChildren} />
 	</div>
 </div>
-
-<AddNewModal level={block.level + 1} bind:showNewEditor />
 
 <Modal bind:show={showEditor}>
 	<AbstractHeading {block}>
@@ -80,30 +82,34 @@
 		@apply p-4 pr-0;
 	}
 
-	/* Level 0 */
-	.level0 .background {
-		@apply bg-sky-400;
-	}
-
 	.level0 .font-size {
-		@apply text-2xl;
+		@apply text-3xl;
 	}
 
 	/* Level 1 */
 	.level1 .background {
-		@apply bg-green-400;
+		@apply bg-sky-400;
 	}
 
 	.level1 .font-size {
-		@apply text-xl;
+		@apply text-2xl;
 	}
 
 	/* Level 2 */
 	.level2 .background {
-		@apply bg-orange-400;
+		@apply bg-green-400;
 	}
 
 	.level2 .font-size {
+		@apply text-xl;
+	}
+
+	/* Level 3 */
+	.level3 .background {
+		@apply bg-orange-400;
+	}
+
+	.level3 .font-size {
 		@apply text-lg;
 	}
 
@@ -113,12 +119,15 @@
 		}
 
 		.level0 .print-size {
-			@apply text-2xl;
+			@apply text-3xl;
 		}
 		.level1 .print-size {
-			@apply text-xl;
+			@apply text-2xl;
 		}
 		.level2 .print-size {
+			@apply text-xl;
+		}
+		.level3 .print-size {
 			@apply text-lg;
 		}
 	}

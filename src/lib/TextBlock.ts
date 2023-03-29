@@ -14,35 +14,52 @@ interface TextBlock {
 	id: string;
 	blockType: string;
 	text: string;
+	parent?: Heading;
 }
 
 export class Heading implements TextBlock {
 	id: string;
 	blockType = 'heading';
 	children: TextBlock[] = [];
+	parent?: Heading;
 
 	constructor(public text: string, public level: number) {
 		this.id = generateId(text);
 	}
 
+	default() {
+		return new Heading('', 0);
+	}
+
+	get scope() {
+		if (this.level == 0) return 'Title';
+		else if (this.level == 1) return 'Chapter';
+		else if (this.level == 2) return 'Section';
+		else if (this.level == 3) return 'Sub-section';
+	}
+
 	/**
 	 * @param text - user recognisable title
 	 * @returns new Heading with level + 1
-	 * @throws Error if level is 2 or higher
+	 * @throws Error if level is 3 or higher
 	 */
 	addHeading(text: string) {
-		if (this.level >= 2) {
+		if (this.level >= 3) {
 			throw new Error('Cannot add heading to a heading with level 3 or higher');
 		}
 
 		const heading = new Heading(text, this.level + 1);
-		this.children.push(heading);
+		heading.parent = this;
+		this.children = [...this.children, heading];
+		console.log(this.children);
 		return heading;
 	}
 
 	addParagraph(text: string) {
 		const paragraph = new Paragraph(text);
-		this.children.push(paragraph);
+		paragraph.parent = this;
+		this.children = [...this.children, paragraph];
+
 		return paragraph;
 	}
 }
@@ -50,9 +67,14 @@ export class Heading implements TextBlock {
 export class Paragraph implements TextBlock {
 	id: string;
 	blockType = 'paragraph';
+	parent?: Heading;
 
 	constructor(public text: string) {
 		this.id = generateId(text);
+	}
+
+	static default() {
+		return new Paragraph('');
 	}
 }
 

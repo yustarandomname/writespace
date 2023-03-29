@@ -7,7 +7,7 @@
 <div class="relative max-w-5xl" id={block.id}>
 	<div class="rounded my-4 overflow-hidden level{block.level}">
 		<div class="flex items-center justify-between background pl-4 pr-2 py-1">
-			<div class="font-medium print:hidden">Chapter</div>
+			<div class="font-medium print:hidden">{block.scope}</div>
 
 			<!-- Actions -->
 			<div class="flex gap-2 print:hidden">
@@ -27,17 +27,17 @@
 
 <style lang="postcss">
 	/* Level 0 */
-	.level0 .background {
+	.level1 .background {
 		@apply bg-sky-400;
 	}
 
 	/* Level 1 */
-	.level1 .background {
+	.level2 .background {
 		@apply bg-green-400;
 	}
 
 	/* Level 2 */
-	.level2 .background {
+	.level3 .background {
 		@apply bg-orange-400;
 	}
 </style>

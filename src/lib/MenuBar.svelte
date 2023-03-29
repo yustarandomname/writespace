@@ -4,7 +4,7 @@
 	import { notifyNotImplemented } from '$lib/stores/notifyStore';
 </script>
 
-<div class="flex px-8 py-2 bg-sky-700 items-center justify-between">
+<div class="flex px-8 py-2 bg-sky-700 items-center justify-between print:hidden">
 	<MenuButton icon={mdiHome} title="Home" on:click={() => notifyNotImplemented('Home')} />
 
 	<div class="flex p-4 rounded bg-sky-100 w-96 h-fit" contenteditable>Search...</div>
@@ -17,10 +17,6 @@
 			title="Share"
 			on:click={() => notifyNotImplemented('Share')}
 		/>
-		<MenuButton
-			icon={mdiPrinter}
-			title="Print/export"
-			on:click={() => notifyNotImplemented('Print/export')}
-		/>
+		<MenuButton icon={mdiPrinter} title="Print/export" on:click={() => window?.print()} />
 	</div>
 </div>
