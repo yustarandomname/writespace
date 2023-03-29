@@ -10,17 +10,6 @@
 
 	const dispatch = createEventDispatcher();
 	let showEditor = false;
-
-	function resize(event: KeyboardEvent) {
-		const target = event.target as HTMLTextAreaElement;
-		target.style.height = 'auto';
-		target.style.height = `${target.scrollHeight}px`;
-	}
-
-	function resizeInit(node: HTMLTextAreaElement) {
-		node.style.height = 'auto';
-		node.style.height = `${node.scrollHeight}px`;
-	}
 </script>
 
 <div out:fly={{ x: 200 }}>
@@ -32,7 +21,7 @@
 </div>
 
 <Modal bind:show={showEditor}>
-	<AbstractParagraph {block}>
+	<AbstractParagraph {block} let:resize let:resizeInit>
 		<svelte:fragment slot="actions">
 			<Button color="red" on:click={() => dispatch('delete')}>Delete</Button>
 			<Button color="green" on:click={() => (showEditor = false)}>Save & Close</Button>

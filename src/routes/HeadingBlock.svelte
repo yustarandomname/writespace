@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AbstractHeading from '$lib/AbstractHeading.svelte';
 	import Modal from '$lib/Modal.svelte';
+	import PrependNewBlock from '$lib/PrependNewBlock.svelte';
 	import PushNewBlock from '$lib/PushNewBlock.svelte';
 	import { isHeading, type Block, type Heading } from '$lib/TextBlock';
 	import { Button } from 'flowbite-svelte';
@@ -51,6 +52,7 @@
 	<!-- Content -->
 	<div class:nested={nested && block.level > 0}>
 		{#each block.children as nestedBlock (nestedBlock.id)}
+			<PrependNewBlock within={block} before={nestedBlock} on:update={updateChildren} />
 			{#if isHeading(nestedBlock)}
 				<svelte:self on:delete={() => removeBlock(nestedBlock)} bind:block={nestedBlock} {nested} />
 			{:else}

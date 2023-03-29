@@ -39,6 +39,12 @@ export class Heading implements TextBlock {
 		else if (this.level == 3) return 'Sub-section';
 	}
 
+	get childScope() {
+		if (this.level == 0) return 'Chapter';
+		else if (this.level == 1) return 'Section';
+		else if (this.level == 2) return 'Sub-section';
+	}
+
 	get color() {
 		if (this.level == 0) return '#e0f2fe';
 		else if (this.level == 1) return '#38bdf8';
@@ -63,10 +69,35 @@ export class Heading implements TextBlock {
 		return heading;
 	}
 
+	addHeadingBefore(text: string, before: Block) {
+		if (this.level >= 3) {
+			throw new Error('Cannot add heading to a heading with level 3 or higher');
+		}
+
+		const heading = new Heading(text, this.level + 1);
+		heading.parent = this;
+		const index = this.children.findIndex((child) => child.id === before.id);
+		if (index < 0) throw new Error('Block not found');
+
+		this.children = [...this.children.slice(0, index), heading, ...this.children.slice(index)];
+		return heading;
+	}
+
 	addParagraph(text: string) {
 		const paragraph = new Paragraph(text);
 		paragraph.parent = this;
 		this.children = [...this.children, paragraph];
+
+		return paragraph;
+	}
+
+	addParagraphBefore(text: string, before: Block) {
+		const paragraph = new Paragraph(text);
+		paragraph.parent = this;
+		const index = this.children.findIndex((child) => child.id === before.id); // find index of before
+		if (index < 0) throw new Error('Block not found');
+
+		this.children = [...this.children.slice(0, index), paragraph, ...this.children.slice(index)];
 
 		return paragraph;
 	}

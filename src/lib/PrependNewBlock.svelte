@@ -1,23 +1,23 @@
 <script lang="ts">
 	import NewBlock from './NewBlock.svelte';
-
 	import type { Block, Heading } from './TextBlock';
 
-	export let block: Heading;
+	export let within: Heading;
+	export let before: Block;
 
 	let blockInEdit: Block | null = null;
 
 	function addHeading() {
-		blockInEdit = block.addHeading('');
+		blockInEdit = within.addHeadingBefore('', before);
 	}
 
 	function addParagraph() {
-		blockInEdit = block.addParagraph('');
+		blockInEdit = within.addParagraphBefore('', before);
 	}
 </script>
 
 <NewBlock
-	{block}
+	block={within}
 	bind:blockInEdit
 	on:addHeading={addHeading}
 	on:addParagraph={addParagraph}

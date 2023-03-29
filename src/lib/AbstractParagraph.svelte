@@ -2,6 +2,17 @@
 	import type { Paragraph } from '$lib/TextBlock';
 
 	export let block: Paragraph;
+
+	function resize(event: KeyboardEvent) {
+		const target = event.target as HTMLTextAreaElement;
+		target.style.height = 'auto';
+		target.style.height = `${target.scrollHeight}px`;
+	}
+
+	function resizeInit(node: HTMLTextAreaElement) {
+		node.style.height = 'auto';
+		node.style.height = `${node.scrollHeight}px`;
+	}
 </script>
 
 <div class="relative max-w-5xl" id={block.id}>
@@ -15,7 +26,7 @@
 			</div>
 		</div>
 
-		<slot>
+		<slot {resize} {resizeInit}>
 			<button class="w-full rounded-b bg-white p-3 cursor-pointer text-left" on:click>
 				<div>
 					{block.text}
