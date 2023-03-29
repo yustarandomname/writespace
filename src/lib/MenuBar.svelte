@@ -5,7 +5,7 @@
 </script>
 
 <div class="flex px-8 py-2 bg-sky-700 items-center justify-between print:hidden">
-	<MenuButton icon={mdiHome} title="Home" on:click={() => notifyNotImplemented('Home')} />
+	<MenuButton href="/" icon={mdiHome} title="Home" on:click={() => notifyNotImplemented('Home')} />
 
 	<div class="flex p-4 rounded bg-sky-100 w-96 h-fit" contenteditable>Search...</div>
 

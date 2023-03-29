@@ -33,7 +33,13 @@
 </script>
 
 <Button class="mt-4 print:hidden" on:click={() => (showNewEditor = true)}>
-	+ Add Paragraph or {block.childScope} to this {block.scope}
+	+ Add Paragraph {block.level < 3 ? 'or ' + block.childScope : ''} to
+	{#if block.level == 0}
+		document
+	{:else}
+		{block.scope}
+		{block.numbering}
+	{/if}
 </Button>
 
 <Modal show={showNewEditor} on:close={close}>

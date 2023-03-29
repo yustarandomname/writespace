@@ -39,6 +39,23 @@ export class Heading implements TextBlock {
 		else if (this.level == 3) return 'Sub-section';
 	}
 
+	/**
+	 * @returns rank of heading in parent scope
+	 */
+	get numbering(): string {
+		if (this.level == 0 || !this.parent) return '';
+		const parentChildrenHeadings = this.parent.children.filter((c) => isHeading(c));
+
+		const parentNumbering = this.parent.numbering;
+
+		const childNumbering = (
+			parentChildrenHeadings.findIndex((child) => child.id === this.id) + 1
+		).toString();
+
+		if (parentNumbering) return `${parentNumbering}.${childNumbering}`;
+		else return childNumbering;
+	}
+
 	get childScope() {
 		if (this.level == 0) return 'Chapter';
 		else if (this.level == 1) return 'Section';

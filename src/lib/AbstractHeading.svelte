@@ -18,6 +18,7 @@
 		<slot>
 			<button class="w-full rounded-b bg-white p-3 cursor-pointer text-left" on:click>
 				<div>
+					<span class="hidden print:block">{block.numbering}</span>
 					{block.text}
 				</div>
 			</button>
