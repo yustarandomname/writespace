@@ -27,7 +27,7 @@
 
 <div class="relative level{block.level}" id={block.id} out:fly={{ x: 200 }}>
 	<div class="rounded my-4 overflow-hidden">
-		<div class="flex items-center justify-between pl-4 bg-sky-100 background pr-2 py-1">
+		<div class="flex items-center justify-between pl-4 bg-teal-400 background pr-2 py-1">
 			<div class="font-medium font-size print:hidden">{block.numbering} {block.scope}</div>
 
 			<!-- Actions -->

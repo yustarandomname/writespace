@@ -4,7 +4,7 @@
 	import HeadingBlock from '../HeadingBlock.svelte';
 	import Overview from '../Overview.svelte';
 
-	let block: Heading = new Heading('new page', 0);
+	let block: Heading = new Heading('', 0);
 </script>
 
 <MenuBar />
