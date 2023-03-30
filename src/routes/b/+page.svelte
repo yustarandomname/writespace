@@ -1,11 +1,10 @@
 <script lang="ts">
-	import hardCodedBook from '$lib/hardCodedBook';
 	import MenuBar from '$lib/MenuBar.svelte';
-	import type { Heading } from '$lib/TextBlock';
+	import { Heading } from '$lib/TextBlock';
 	import HeadingBlock from '../HeadingBlock.svelte';
 	import Overview from '../Overview.svelte';
 
-	let block: Heading = hardCodedBook;
+	let block: Heading = new Heading('new page', 0);
 </script>
 
 <MenuBar />
